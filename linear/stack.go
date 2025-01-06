@@ -8,6 +8,13 @@ type Stack[T any] struct {
 	items []T
 }
 
+// Constructor method
+func NewStack[T any]() *Stack[T] {
+	return &Stack[T]{
+		items: make([]T, 0),
+	}
+}
+
 // Writing a function that checks a stack for empty
 func (s *Stack[T]) IsEmpty() bool {
 	return len(s.items) == 0
@@ -21,13 +28,6 @@ func (s *Stack[T]) Size() int {
 // Clear removes all items from the stack
 func (s *Stack[T]) Clear() {
 	s.items = make([]T, 0)
-}
-
-// Returning an empty stack
-func NewStack[T any]() *Stack[T] {
-	return &Stack[T]{
-		items: make([]T, 0),
-	}
 }
 
 // Add an element into a stack
