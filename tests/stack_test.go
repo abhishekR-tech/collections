@@ -6,7 +6,7 @@ import (
 	"github.com/abhishekR-tech/collections/linear"
 )
 
-func TestStack(t *testing.T) {
+func TestIntegerStack(t *testing.T) {
 	// Test integer stack
 	t.Run("Integer Stack", func(t *testing.T) {
 		stack := linear.NewStack[int]()
@@ -65,7 +65,10 @@ func TestStack(t *testing.T) {
 		}
 	})
 
-	// Test string stack
+}
+
+// Test string stack
+func TestStringStack(t *testing.T) {
 	t.Run("String Stack", func(t *testing.T) {
 		stack := linear.NewStack[string]()
 		stack.Push("hello")
@@ -73,7 +76,7 @@ func TestStack(t *testing.T) {
 
 		val, err := stack.Pop()
 		if err != nil || val != "world" {
-			t.Error("String stack not working correctly")
+			t.Error("Error! Pop should return the world")
 		}
 	})
 }
