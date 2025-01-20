@@ -6,12 +6,13 @@ import (
 	"strings"
 )
 
-// Node represents a node in the deque
-type Node[T any] struct {
-	value T
-	prev  *Node[T]
-	next  *Node[T]
-}
+// // Node represents a node in the deque
+//
+//	type Node[T any] struct {
+//		value T
+//		prev  *Node[T]
+//		next  *Node[T]
+//	}
 
 // Deque represents a double-ended queue
 type Deque[T any] struct {
@@ -32,16 +33,16 @@ func NewDeque[T any]() *Deque[T] {
 // AddFirst adds an element to the front of the deque
 func (d *Deque[T]) AddFirst(value T) {
 	newNode := &Node[T]{
-		value: value,
-		prev:  nil,
-		next:  d.head,
+		Value: value,
+		Prev:  nil,
+		Next:  d.head,
 	}
 
 	if d.head == nil {
 		d.head = newNode
 		d.tail = newNode
 	} else {
-		d.head.prev = newNode
+		d.head.Prev = newNode
 		d.head = newNode
 	}
 	d.length++
@@ -50,16 +51,16 @@ func (d *Deque[T]) AddFirst(value T) {
 // AddLast adds an element to the end of the deque
 func (d *Deque[T]) AddLast(value T) {
 	newNode := &Node[T]{
-		value: value,
-		prev:  d.tail,
-		next:  nil,
+		Value: value,
+		Prev:  d.tail,
+		Next:  nil,
 	}
 
 	if d.tail == nil {
 		d.head = newNode
 		d.tail = newNode
 	} else {
-		d.tail.next = newNode
+		d.tail.Next = newNode
 		d.tail = newNode
 	}
 	d.length++
@@ -72,14 +73,14 @@ func (d *Deque[T]) RemoveFirst() (T, error) {
 		return zero, errors.New("deque is empty")
 	}
 
-	value := d.head.value
-	d.head = d.head.next
+	value := d.head.Value
+	d.head = d.head.Next
 	d.length--
 
 	if d.head == nil {
 		d.tail = nil
 	} else {
-		d.head.prev = nil
+		d.head.Prev = nil
 	}
 
 	return value, nil
@@ -92,14 +93,14 @@ func (d *Deque[T]) RemoveLast() (T, error) {
 		return zero, errors.New("deque is empty")
 	}
 
-	value := d.tail.value
-	d.tail = d.tail.prev
+	value := d.tail.Value
+	d.tail = d.tail.Prev
 	d.length--
 
 	if d.tail == nil {
 		d.head = nil
 	} else {
-		d.tail.next = nil
+		d.tail.Next = nil
 	}
 
 	return value, nil
@@ -111,7 +112,7 @@ func (d *Deque[T]) PeekFirst() (T, error) {
 	if d.IsEmpty() {
 		return zero, errors.New("deque is empty")
 	}
-	return d.head.value, nil
+	return d.head.Value, nil
 }
 
 // PeekLast returns the last element without removing it
@@ -120,7 +121,7 @@ func (d *Deque[T]) PeekLast() (T, error) {
 	if d.IsEmpty() {
 		return zero, errors.New("deque is empty")
 	}
-	return d.tail.value, nil
+	return d.tail.Value, nil
 }
 
 // IsEmpty returns true if the deque has no elements
@@ -145,8 +146,8 @@ func (d *Deque[T]) ToSlice() []T {
 	result := make([]T, d.length)
 	current := d.head
 	for i := 0; i < d.length; i++ {
-		result[i] = current.value
-		current = current.next
+		result[i] = current.Value
+		current = current.Next
 	}
 	return result
 }
@@ -171,11 +172,11 @@ func (d *Deque[T]) String() string {
 
 	current := d.head
 	for current != nil {
-		sb.WriteString(fmt.Sprintf("%v", current.value))
-		if current.next != nil {
+		sb.WriteString(fmt.Sprintf("%v", current.Value))
+		if current.Next != nil {
 			sb.WriteString(" ")
 		}
-		current = current.next
+		current = current.Next
 	}
 
 	sb.WriteString("]")

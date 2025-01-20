@@ -1,4 +1,4 @@
-package structs
+package linear
 
 /**
 This package is created for the basic structs
