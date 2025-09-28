@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// // Node represents a node in the deque
+//  Node represents a node in the deque
 //
 //	type Node[T any] struct {
 //		value T
@@ -31,9 +31,9 @@ func NewDeque[T any]() *Deque[T] {
 }
 
 // AddFirst adds an element to the front of the deque
-func (d *Deque[T]) AddFirst(value T) {
+func (d *Deque[T]) AddFirst(item T) {
 	newNode := &Node[T]{
-		Value: value,
+		Value: item,
 		Prev:  nil,
 		Next:  d.head,
 	}
@@ -49,9 +49,9 @@ func (d *Deque[T]) AddFirst(value T) {
 }
 
 // AddLast adds an element to the end of the deque
-func (d *Deque[T]) AddLast(value T) {
+func (d *Deque[T]) AddLast(item T) {
 	newNode := &Node[T]{
-		Value: value,
+		Value: item,
 		Prev:  d.tail,
 		Next:  nil,
 	}
@@ -73,7 +73,7 @@ func (d *Deque[T]) RemoveFirst() (T, error) {
 		return zero, errors.New("deque is empty")
 	}
 
-	value := d.head.Value
+	item := d.head.Value
 	d.head = d.head.Next
 	d.length--
 
@@ -83,7 +83,7 @@ func (d *Deque[T]) RemoveFirst() (T, error) {
 		d.head.Prev = nil
 	}
 
-	return value, nil
+	return item, nil
 }
 
 // RemoveLast removes and returns the last element
@@ -145,7 +145,7 @@ func (d *Deque[T]) Clear() {
 func (d *Deque[T]) ToSlice() []T {
 	result := make([]T, d.length)
 	current := d.head
-	for i := 0; i < d.length; i++ {
+	for i := range d.length {
 		result[i] = current.Value
 		current = current.Next
 	}
