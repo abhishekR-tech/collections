@@ -6,14 +6,6 @@ import (
 	"strings"
 )
 
-//  Node represents a node in the deque
-//
-//	type Node[T any] struct {
-//		value T
-//		prev  *Node[T]
-//		next  *Node[T]
-//	}
-
 // Deque represents a double-ended queue
 type Deque[T any] struct {
 	head   *Node[T]

@@ -4,12 +4,14 @@ import (
 	"errors"
 )
 
+// LinkedList represents a doubly linked list data structure
 type LinkedList[T any] struct {
 	length int
 	head   *Node[T]
 	tail   *Node[T]
 }
 
+// NewLinkedList creates and returns a new empty linked list
 func NewLinkedList[T any]() *LinkedList[T] {
 	return &LinkedList[T]{
 		length: 0,
@@ -18,6 +20,7 @@ func NewLinkedList[T any]() *LinkedList[T] {
 	}
 }
 
+// Append adds an item to the end of the linked list
 func (ll *LinkedList[T]) Append(item T) {
 	newNode := &Node[T]{
 		Value: item,
@@ -35,6 +38,7 @@ func (ll *LinkedList[T]) Append(item T) {
 	ll.length++
 }
 
+// Prepend adds an item to the beginning of the linked list
 func (ll *LinkedList[T]) Prepend(item T) {
 	newNode := &Node[T]{
 		Value: item,
@@ -52,6 +56,7 @@ func (ll *LinkedList[T]) Prepend(item T) {
 	ll.length++
 }
 
+// Insert adds an item at the specified index in the linked list
 func (ll *LinkedList[T]) Insert(index int, item T) {
 	current := ll.head
 	for _ = range index {
@@ -184,10 +189,12 @@ func (ll *LinkedList[T]) Find(value T, equal func(T, T) bool) int {
 	return -1
 }
 
+// Size returns the number of elements in the linked list
 func (ll *LinkedList[T]) Size() int {
 	return ll.length
 }
 
+// IsEmpty returns true if the linked list has no elements
 func (ll *LinkedList[T]) IsEmpty() bool {
 	return ll.length == 0
 }
