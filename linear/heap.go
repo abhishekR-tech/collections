@@ -16,14 +16,14 @@ type MaxHeap[T constraints.Ordered] struct {
 	items []T
 }
 
-// NewMinHeap creates a new MinHeap
+// NewMinHeap creates and returns a new empty min-heap
 func NewMinHeap[T constraints.Ordered]() *MinHeap[T] {
 	return &MinHeap[T]{
 		items: make([]T, 0),
 	}
 }
 
-// NewMaxHeap creates a new MaxHeap
+// NewMaxHeap creates and returns a new empty max-heap
 func NewMaxHeap[T constraints.Ordered]() *MaxHeap[T] {
 	return &MaxHeap[T]{
 		items: make([]T, 0),
@@ -32,7 +32,7 @@ func NewMaxHeap[T constraints.Ordered]() *MaxHeap[T] {
 
 // MinHeap methods
 
-// IsEmpty checks if the heap is empty
+// IsEmpty returns true if the heap has no items
 func (h *MinHeap[T]) IsEmpty() bool {
 	return len(h.items) == 0
 }
@@ -47,7 +47,7 @@ func (h *MinHeap[T]) Clear() {
 	h.items = make([]T, 0)
 }
 
-// Push adds an element to the heap
+// Push adds an item to the heap
 func (h *MinHeap[T]) Push(item T) {
 	h.items = append(h.items, item)
 	h.heapifyUp(len(h.items) - 1)
@@ -124,7 +124,7 @@ func (h *MinHeap[T]) heapifyDown(index int) {
 
 // MaxHeap methods
 
-// IsEmpty checks if the heap is empty
+// IsEmpty returns true if the heap has no items
 func (h *MaxHeap[T]) IsEmpty() bool {
 	return len(h.items) == 0
 }
@@ -139,7 +139,7 @@ func (h *MaxHeap[T]) Clear() {
 	h.items = make([]T, 0)
 }
 
-// Push adds an element to the heap
+// Push adds an item to the heap
 func (h *MaxHeap[T]) Push(item T) {
 	h.items = append(h.items, item)
 	h.heapifyUp(len(h.items) - 1)

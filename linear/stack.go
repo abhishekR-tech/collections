@@ -2,20 +2,19 @@ package linear
 
 import "errors"
 
-// A Stack that has generics so that it can be created
-// for any given datatype
+// Stack represents a LIFO (Last In First Out) data structure
 type Stack[T any] struct {
 	items []T
 }
 
-// Constructor method
+// NewStack creates and returns a new empty stack
 func NewStack[T any]() *Stack[T] {
 	return &Stack[T]{
 		items: make([]T, 0),
 	}
 }
 
-// Writing a function that checks a stack for empty
+// IsEmpty returns true if the stack has no items
 func (s *Stack[T]) IsEmpty() bool {
 	return len(s.items) == 0
 }
@@ -30,12 +29,12 @@ func (s *Stack[T]) Clear() {
 	s.items = make([]T, 0)
 }
 
-// Add an element into a stack
+// Push adds an item to the top of the stack
 func (s *Stack[T]) Push(item T) {
 	s.items = append(s.items, item)
 }
 
-// Remove the last elemt in the stack
+// Pop removes and returns the top item from the stack
 func (s *Stack[T]) Pop() (T, error) {
 	if s.IsEmpty() {
 		return *new(T), errors.New("Empty Stack")
@@ -45,7 +44,7 @@ func (s *Stack[T]) Pop() (T, error) {
 	return item, nil
 }
 
-// Look at the  "top" of the stack ,i.e., last element
+// Peek returns the top item without removing it
 func (s *Stack[T]) Peek() (T, error) {
 	if s.IsEmpty() {
 		return *new(T), errors.New("Empty Stack")
@@ -54,7 +53,7 @@ func (s *Stack[T]) Peek() (T, error) {
 	return s.items[len(s.items)-1], nil
 }
 
-// Convert the Slack into a slice for output
+// ToSlice returns a copy of the stack as a slice
 func (s *Stack[T]) ToSlice() []T {
 	result := make([]T, len(s.items))
 	copy(result, s.items)
