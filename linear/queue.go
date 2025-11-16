@@ -1,6 +1,10 @@
 package linear
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"strings"
+)
 
 // Queue represents a FIFO (First In First Out) data structure
 type Queue[T any] struct {
@@ -50,4 +54,39 @@ func (q *Queue[T]) Size() int {
 // Clear removes all items from the queue
 func (q *Queue[T]) Clear() {
 	q.items = make([]T, 0)
+}
+
+// ToSlice returns a copy of the queue as a slice
+func (q *Queue[T]) ToSlice() []T {
+	result := make([]T, len(q.items))
+	copy(result, q.items)
+	return result
+}
+
+// FromQueueSlice creates a new queue from a slice
+func FromQueueSlice[T any](slice []T) *Queue[T] {
+	queue := NewQueue[T]()
+	queue.items = make([]T, len(slice))
+	copy(queue.items, slice)
+	return queue
+}
+
+// String returns a string representation of the queue
+func (q *Queue[T]) String() string {
+	if q.IsEmpty() {
+		return "[]"
+	}
+
+	var sb strings.Builder
+	sb.WriteString("[")
+
+	for i, item := range q.items {
+		sb.WriteString(fmt.Sprintf("%v", item))
+		if i < len(q.items)-1 {
+			sb.WriteString(" ")
+		}
+	}
+
+	sb.WriteString("]")
+	return sb.String()
 }

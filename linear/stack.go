@@ -1,6 +1,10 @@
 package linear
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"strings"
+)
 
 // Stack represents a LIFO (Last In First Out) data structure
 type Stack[T any] struct {
@@ -58,4 +62,33 @@ func (s *Stack[T]) ToSlice() []T {
 	result := make([]T, len(s.items))
 	copy(result, s.items)
 	return result
+}
+
+// FromStackSlice creates a new stack from a slice
+func FromStackSlice[T any](slice []T) *Stack[T] {
+	stack := NewStack[T]()
+	stack.items = make([]T, len(slice))
+	copy(stack.items, slice)
+	return stack
+}
+
+// String returns a string representation of the stack (top to bottom)
+func (s *Stack[T]) String() string {
+	if s.IsEmpty() {
+		return "[]"
+	}
+
+	var sb strings.Builder
+	sb.WriteString("[")
+
+	// Display from top to bottom (reverse order)
+	for i := len(s.items) - 1; i >= 0; i-- {
+		sb.WriteString(fmt.Sprintf("%v", s.items[i]))
+		if i > 0 {
+			sb.WriteString(" ")
+		}
+	}
+
+	sb.WriteString("]")
+	return sb.String()
 }

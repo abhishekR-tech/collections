@@ -2,6 +2,8 @@ package linear
 
 import (
 	"errors"
+	"fmt"
+	"strings"
 )
 
 // LinkedList represents a doubly linked list data structure
@@ -197,4 +199,53 @@ func (ll *LinkedList[T]) Size() int {
 // IsEmpty returns true if the linked list has no elements
 func (ll *LinkedList[T]) IsEmpty() bool {
 	return ll.length == 0
+}
+
+// ToSlice converts the linked list to a slice
+func (ll *LinkedList[T]) ToSlice() []T {
+	result := make([]T, ll.length)
+	current := ll.head
+	for i := range ll.length {
+		result[i] = current.Value
+		current = current.Next
+	}
+	return result
+}
+
+// Clear removes all elements from the linked list
+func (ll *LinkedList[T]) Clear() {
+	ll.head = nil
+	ll.tail = nil
+	ll.length = 0
+}
+
+// FromLinkedListSlice creates a new linked list from a slice
+func FromLinkedListSlice[T any](slice []T) *LinkedList[T] {
+	list := NewLinkedList[T]()
+	for _, value := range slice {
+		list.Append(value)
+	}
+	return list
+}
+
+// String returns a string representation of the linked list
+func (ll *LinkedList[T]) String() string {
+	if ll.IsEmpty() {
+		return "[]"
+	}
+
+	var sb strings.Builder
+	sb.WriteString("[")
+
+	current := ll.head
+	for current != nil {
+		sb.WriteString(fmt.Sprintf("%v", current.Value))
+		if current.Next != nil {
+			sb.WriteString(" ")
+		}
+		current = current.Next
+	}
+
+	sb.WriteString("]")
+	return sb.String()
 }
